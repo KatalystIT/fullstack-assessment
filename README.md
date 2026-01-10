@@ -214,7 +214,7 @@ Complete the submission form with:
 
 ## ⏰ Timeline
 
-- **Due Date:** [5 days from when sent]
+- **Due Date:** 12 01 2026
 - **Estimated Time:** 2-4 hours
 - **Don't exceed:** 6 hours
 
