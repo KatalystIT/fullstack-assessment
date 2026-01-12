@@ -84,9 +84,9 @@ Errors are returned in a consistent JSON format.
 
 ## Running the Service
 
-```bash
-cd backend
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-uvicorn app:app --reload
+- cd backend
+- python -m venv venv
+- source venv/bin/activate (MacOs/Linux) 
+- venv\Scripts\activate (Windows)
+- pip install -r requirements.txt
+- uvicorn app:app --reload
