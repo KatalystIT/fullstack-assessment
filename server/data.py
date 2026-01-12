@@ -34,4 +34,10 @@ SERVERS: List[Dict] = [
         "type": "worker",
         "metrics": {"cpu_usage": 66.3, "memory_usage": 73.4, "disk_usage": 62.0, "network_io": 980.0},
     },
+        {
+        "id": "server-6",
+        "name": "api-server-02",
+        "type": "worker",
+        "metrics": {"cpu_usage": 55.3, "memory_usage": 65.4, "disk_usage": 62.0, "network_io": 2103.0},
+    },
 ]
