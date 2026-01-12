@@ -24,7 +24,7 @@ app.add_middleware(
 # -----------------------------
 # Routes
 # -----------------------------
-@app.get("/")
+@app.get("/",)
 def root():
     return {"message": "Server Monitoring API", "version": "1.0.0"}
 
@@ -55,3 +55,51 @@ def get_servers():
     return {"servers": servers_out}
 
 
+
+
+@app.get("/api/servers/{server_id}/metrics")
+def get_server_metrics(server_id: str):
+    """
+    Returns detailed metrics for one server, plus derived status.
+    """
+    s = find_server(server_id)
+
+    # simulate updates for this server
+    new_metrics = jitter_metrics(s["metrics"])
+    s["metrics"] = new_metrics
+
+    return {
+        "server_id": s["id"],
+        "name": s["name"],
+        "metrics": new_metrics,
+        "status": status_from_metrics(new_metrics),
+        "timestamp": now_iso_z(),
+    }
+
+
+@app.get("/api/servers/alerts")
+def get_alerts():
+    """
+    Returns servers with critical status (any usage metric > 90%).
+    One alert per metric that breaches threshold.
+    """
+    ts = now_iso_z()
+    alerts_out = []
+
+    for s in SERVERS:
+        m = s["metrics"]
+        for key in USAGE_KEYS:
+            value = m[key]
+            if value > ALERT_THRESHOLD:
+                alerts_out.append(
+                    {
+                        "server_id": s["id"],
+                        "name": s["name"],
+                        "alert_type": key.replace("_usage", ""),
+                        "value": value,
+                        "threshold": ALERT_THRESHOLD,
+                        "timestamp": ts,
+                    }
+                )
+
+    return {"alerts": alerts_out}
