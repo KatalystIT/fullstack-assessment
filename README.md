@@ -375,3 +375,73 @@ You may include the code in your private portfolio after the hiring process conc
 Good luck! We're excited to see what you build. 🚀
 
 **- Katalyst IT Team**
+
+# Description of my implementation
+---
+# Server Monitoring Dashboard
+
+A full-stack application for monitoring server health, system metrics, and alerts.
+The system consists of a REST API and a web-based dashboard designed to surface operational information clearly and efficiently.
+
+---
+
+## Overview
+
+The application provides:
+- A backend API exposing server health, metrics, and alerts
+- A frontend dashboard for visualizing server status and critical conditions
+- Near real-time updates via periodic polling
+- A focused, non-persistent data model to keep the system simple and easy to reason about
+
+The implementation prioritizes clarity, correctness, and extensibility over infrastructure complexity.
+
+---
+
+## Architecture Summary
+
+- **Backend**: FastAPI service exposing a REST API with OpenAPI documentation
+- **Frontend**: React + TypeScript dashboard with a custom UI
+- **Data**: In-memory mock data representing servers and metrics
+
+The backend and frontend are intentionally decoupled and communicate solely through the API.
+
+---
+
+## Design Highlights
+
+- Server health is derived dynamically from metric values
+- Alerts are generated based on configurable thresholds
+- UI emphasizes critical information without overwhelming the user
+- Server details are presented in a modal to avoid unnecessary navigation
+
+
+---
+
+## Potential Improvements
+
+Given additional time and scope, the following enhancements could be explored:
+
+- Persisting metrics and alerts in a database
+- Historical charts and trend analysis
+- Push-based updates using WebSockets
+- Authentication and role-based access control
+- User-configurable alert thresholds
+- Automated testing for core backend logic
+
+---
+
+## Time Investment
+
+Approximately **3.5 hours** were spent on this project, including:
+- API design and implementation
+- Frontend development and UI design
+- Error handling and documentation
+- Iteration on layout and usability
+
+---
+
+## Notes
+
+The UI design is inspired by modern monitoring dashboards, with all components implemented manually to maintain full control over behavior and presentation.
+
+Further technical details can be found in the `backend/README.md` and `frontend/README.md`.

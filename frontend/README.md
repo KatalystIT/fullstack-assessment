@@ -1,73 +1,85 @@
-# React + TypeScript + Vite
+# Server Monitoring Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A client-side dashboard for visualizing server health, system metrics, and alerts in near real time.
+The interface is designed to surface critical information quickly while remaining easy to navigate and extend.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Overview
 
-## React Compiler
+The dashboard provides:
+- A searchable list of servers with health status indicators
+- Visual summaries of CPU, memory, disk, and network usage
+- A dedicated alerts panel for critical conditions
+- A detailed server view presented in a modal
+- Automatic periodic refresh to simulate real-time monitoring
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The layout follows common monitoring patterns, prioritizing clarity and information density without overwhelming the user.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Technology Choices
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### React + TypeScript
+React was chosen for its predictable component model and ecosystem maturity.
+TypeScript is used throughout the application to:
+- Enforce strong typing for API responses and UI state
+- Catch errors early during development
+- Improve maintainability as the application grows
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Vite
+Vite provides a fast development environment with minimal configuration:
+- Instant dev server startup
+- Efficient hot module replacement
+- Modern build tooling without unnecessary complexity
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Tailwind CSS
+Tailwind CSS was selected to:
+- Build a custom UI without relying on pre-built component libraries
+- Iterate quickly on layout, spacing, and visual hierarchy
+- Keep styling colocated with component logic
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+All UI components are implemented manually using utility classes.
+
+---
+
+## Design Approach
+
+- Server cards present high-level health information at a glance
+- Status-based filtering and search improve discoverability
+- Clicking a server opens a modal with detailed metrics
+- Alerts are visually emphasized to draw attention to critical states
+
+The visual style is inspired by modern monitoring dashboards, but the implementation is entirely custom and component-driven.
+
+---
+
+## Real-Time Behavior
+
+The dashboard polls the backend API at a fixed interval to simulate real-time updates.
+This approach:
+- Keeps the implementation simple and predictable
+- Avoids introducing streaming or WebSocket complexity
+- Ensures UI state remains consistent during updates
+
+---
+
+## Setup & Running the Application
+
+### Prerequisites
+- Node.js 18+
+- npm (comes with Node.js)
+
+---
+
+### Installation and running the app
+
+From the project root:
+
+- cd frontend
+- npm install
+- npm run dev
