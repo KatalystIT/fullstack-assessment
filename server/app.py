@@ -1,5 +1,6 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, Path, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from data import SERVERS
 from helper import ALERT_THRESHOLD, USAGE_KEYS, find_server, jitter_metrics, now_iso_z, status_from_metrics
@@ -24,11 +25,19 @@ app.add_middleware(
 # -----------------------------
 # Routes
 # -----------------------------
-@app.get("/",)
+@app.exception_handler(Exception)
+async def unhandled_exception_handler(request: Request, exc: Exception):
+    return JSONResponse(
+        status_code=500,
+        content={"detail": "Internal server error"},
+    )
+
+
+@app.get("/",status_code=200)
 def root():
     return {"message": "Server Monitoring API", "version": "1.0.0"}
 
-@app.get("/api/servers")
+@app.get("/api/servers", status_code=200)
 def get_servers():
     """
     Returns all servers with derived status and last_updated.
@@ -57,8 +66,8 @@ def get_servers():
 
 
 
-@app.get("/api/servers/{server_id}/metrics")
-def get_server_metrics(server_id: str):
+@app.get("/api/servers/{server_id}/metrics", status_code=200)
+def get_server_metrics(server_id: str= Path(..., pattern=r"^server-\d+$")):
     """
     Returns detailed metrics for one server, plus derived status.
     """
@@ -77,7 +86,7 @@ def get_server_metrics(server_id: str):
     }
 
 
-@app.get("/api/servers/alerts")
+@app.get("/api/servers/alerts", status_code=200)
 def get_alerts():
     """
     Returns servers with critical status (any usage metric > 90%).
